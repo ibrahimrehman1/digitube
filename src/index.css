@@ -1,0 +1,359 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);   */
+  /* background: linear-gradient(90deg, #0700b8 0%, #00ff88 100); */
+  /* background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%); */
+  background-image: linear-gradient(to right top, #116466, #005965, #004d63, #00415e, #003456, #003456, #003456, #003456, #00415e, #004d63, #005965, #116466);}
+
+h1, h2, h3, h4, h5, h6{
+  font-family: Roboto !important;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.nav-item > a{
+  color: white !important;
+  font-weight: bold;
+}
+
+.navbar{
+  /* background: radial-gradient(navy, black); */
+  background: black;
+  padding-bottom: 0px;
+  /* position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 100; */
+}
+
+/* 
+.navbar{
+  border-width: 0px !important; 
+  border-bottom-width: 1px !important; 
+} */
+
+
+/* .searchbar-div{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 50px;
+} */
+
+
+.form-group.row{
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.search-input{
+  margin-right: 0px !important;
+  border-radius: 0px !important;
+}
+
+.search-btn{
+  border-radius: 0px !important;
+}
+
+.navbar-toggler{
+  border: 2px solid rgba(255, 255, 255, 0.5) !important;
+}
+
+@media screen and (max-width: 990px){
+  .navbar-collapse{
+    position: static !important;
+    text-align: center;
+  }
+}
+
+.row{
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
+*:focus{
+  outline-width: 0px !important;
+}
+
+.MuiCardContent-root{
+  padding: 0px !important;
+  padding-top: 10px !important;
+}
+
+.video-section{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 50px;
+  /* flex-wrap: wrap; */
+}
+
+.video-section-2{
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px;
+}
+
+.playlist-card{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  color: white;
+  padding: 1.5em;
+  border: 1px solid white;
+}
+
+.dropanchor:hover{
+  cursor: pointer;
+}
+
+.dropdiv{
+  margin-left: 10px !important;
+  top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.collapse.navbar-collapse{
+  justify-content: center;
+}
+
+.ol-list{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 0px;
+}
+
+.ol-list > li{
+  display: inline;
+  color: white;
+  font-weight: bold;
+}
+
+.ol-list a{
+  color: inherit;
+}
+
+
+@media screen and (max-width: 990px){
+  .ol-list{
+    display: inline !important;
+  }
+
+  .navbar-brand{
+    margin-right: 0px !important;
+  }
+}
+
+.search-btn{
+  margin: 0px !important;
+}
+
+.navbar-brand > img{
+  width: 70px;
+  height: auto;
+}
+
+.postComment{
+  padding: 10px;
+  border-width: 0px;
+  background-color: transparent;
+  border-bottom: 1px solid white;
+  color: black;
+  width: 600px;
+}
+
+.postComment::placeholder{
+  color: rgb(211, 211, 211);
+}
+
+.postComment ~ button{
+  padding: 10px;
+  border-width: 0px;
+  font-weight: 500;
+  opacity: .6;
+  cursor: pointer;
+  margin-top: 10px;
+  background-color: #b3b3b3;
+  color: black;}
+
+.comments-list{
+  color: black;
+  position: relative;
+  list-style: none;
+  /* display: flex;
+  flex-direction: column;
+  align-items: flex-start; */
+  padding: 0px;
+  margin-top: 30px;
+  width: 600px;
+  text-align: left;
+}
+
+
+.comments-list > li::before {
+  content: '▶';
+  position: absolute;
+  left: -20px;
+}
+
+.comments-list > li{
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.MuiTypography-body2 > h6{
+  font-size: 1.3rem !important;
+}
+
+@media screen and (min-width: 994px){
+  .dropdown-toggle::after{
+    display: inline;
+    position: relative;
+    top: 20px;
+    left: 5px;
+  }
+}
+
+@media screen and (max-width: 994px){
+  .nav-item.dropanchor > div{
+    display: inline;
+  }
+
+  .nav-link{
+    margin-left: 0px !important;
+  }
+
+  .navbar{
+    padding-bottom: 10px !important;
+  }
+}
+
+
+.video-like-dislike{
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.video-like-dislike > div{
+  display: flex;
+  flex-direction: row;
+}
+
+.video-like-dislike a{
+  margin: 10px 10px;
+  font-size: 1.5rem;
+}
+
+.video-like-dislike a::before{
+  margin: 10px;
+}
+
+.video-like-dislike > span{
+  font-size: 1.5rem;
+  margin: 5px;
+}
+
+.main-video-div{
+  display: flex;
+  flex-direction: column;
+  padding: 2em;
+  /* align-items: center; */
+  margin-top: 80px;
+}
+
+
+.playlist-vids{
+  display: flex;
+  padding: 2em;
+  margin-top: 100px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.img-tile{
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-between;
+  border-radius: 10px;
+
+  width: 100%;
+  border: 2px solid black;
+}
+
+.img-tile > div{
+  display: flex;
+  
+}
+
+.img-tile > div > div > h2{
+  margin-top: 20px;
+}
+
+.playlist-vids > *{
+  color: white;
+}
+
+.footer{
+  padding: 1em;
+  background-color: black;
+  text-align: center;
+  margin-top: 20px;
+  color: white;
+}
+
+.main-video-div > *{
+  color: white !important;
+}
+
+.comment-div > *{
+  color: white;
+}
+
+.video-upload-form > *{
+  color: white;
+}
+
+
+.trash-div > a{
+  margin-top: 15px;
+  margin-right: 20px;
+  font-size: 1.5rem; 
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+}
+.trash-div > a:hover{
+  transform: translateY(-5px);
+  transition: transform .3s ease-in-out;
+}
+
+pre {
+  white-space: pre-wrap;       /* Since CSS 2.1 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+audio{
+  display: block;
+  margin: auto;
+}
