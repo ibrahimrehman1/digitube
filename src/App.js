@@ -131,7 +131,35 @@ function App() {
         />
       </Switch>
       <footer className="footer">
-        <h5>&copy; Copyright 2021 | All Rights Reserved</h5>
+        <div>
+        <div className="social-icons-div">
+          <h2>DIGITUBE</h2>
+          <div className="social-icons">
+          <i class="fab fa-facebook-f"></i>
+          <i class="fab fa-instagram"></i>          <i class="fab fa-youtube"></i>
+          <i class="fab fa-twitter"></i>
+          </div>
+        </div>
+        <ul className="support-footer">
+          <li>Support</li>
+          <li>Contact Us</li>
+          <li>FAQ</li>
+          <li>Downloads</li>
+          <li>Locate a Dealer</li>
+          <li>Product Registration</li>
+          <li>Spare Parts</li>
+        </ul>
+        <ul className="support-footer">
+          <li>Digitube</li>
+          <li>About Digitube</li>
+          <li>Digitube Design</li>
+          <li>Careers</li>
+          <li>Newsroom</li>
+        </ul>
+        </div>
+        <div className="copyright-div">
+          <h5>&copy; Copyright 2021 | All Rights Reserved</h5>
+        </div>
       </footer>
     </>
   );

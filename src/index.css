@@ -311,13 +311,7 @@ code {
   color: white;
 }
 
-.footer{
-  padding: 1em;
-  background-color: black;
-  text-align: center;
-  margin-top: 20px;
-  color: white;
-}
+
 
 .main-video-div > *{
   color: white !important;
@@ -356,4 +350,52 @@ pre {
 audio{
   display: block;
   margin: auto;
+}
+
+.footer{
+  padding: 2em 2em 1em 2em;
+  background-color: black;
+  text-align: center;
+  margin-top: 40px;
+  color: white;
+ 
+}
+
+.footer > div{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+
+.social-icons-div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.social-icons{
+  display: flex;
+  flex-direction: row;
+
+}
+
+.social-icons > i{
+  color: white;
+  margin: 5px 10px;
+  font-size: 1.3rem;
+}
+
+.support-footer{
+  text-align: left;
+  list-style-type: none;
+}
+
+.support-footer > li:first-child{
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.copyright-div{
+  margin-top: 20px;
 }

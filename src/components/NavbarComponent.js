@@ -33,6 +33,7 @@ function Navbar({categories, remainCategories, username, dispatch}){
         <nav className="navbar navbar-expand-lg navbar-dark">
             <a className="navbar-brand" href="#" onClick={()=>window.location.assign("http://localhost:3000/")}>
                 <img src={Logo} alt="Website Logo" />
+                <h2 style={{display: "inline-block", marginLeft: "10px", verticalAlign: "middle", marginBottom: "0px"}}>DIGITUBE</h2>
             </a>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
