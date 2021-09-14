@@ -95,25 +95,14 @@ function VideoUploadComponent({ match: { params } }) {
             name="description"
           ></textarea>
         </div>
-        <div class="form-check">
-          <input
-            type="checkbox"
-            class="form-check-input"
-            id="exampleCheck1"
-            name="subtitles_check"
-          />
-          <label class="form-check-label" for="exampleCheck1">
-            Captions (Optional)
-          </label>
-        </div>
         <br />
         <div class="form-group">
-          <label for="exampleFormControlFile1">Upload Captions</label>
+          <label for="exampleFormControlFile1">Upload Captions (Optional)</label>
           <input
             type="file"
             class="form-control-file"
             id="exampleFormControlFile1"
-            name="subtitles"
+            name="video"
           />
         </div>
         <br />

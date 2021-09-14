@@ -223,8 +223,8 @@ function VideoCardComponent({
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>Watch Later</MenuItem>
-            <MenuItem onClick={handleClose}>Share</MenuItem>
+            {/* <MenuItem onClick={handleClose}>Watch Later</MenuItem>
+            <MenuItem onClick={handleClose}>Share</MenuItem> */}
             <MenuItem
               onClick={function () {
                 handleOpen();

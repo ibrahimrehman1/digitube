@@ -206,6 +206,7 @@ export function ShowVideoComponent({ match: { params } }) {
             controls
           >
             <source src={"http://localhost:5000/" + url}></source>
+            <track src={'http://localhost:5000/' + videoData[0].captions} kind="captions" srclang="en" label="English" />
             Video Not Available
           </video>}
 
