@@ -186,6 +186,25 @@ export function ShowVideoComponent({ match: { params } }) {
       updateLikeDislikes(label, false);
     }
   }
+
+
+  async function updateCommentLikes(ID, count){
+      await fetch(`http://localhost:5000/commentlikes?id=${ID}&count=${count}`, {method: "PUT"})
+  }
+
+  function changeCommentThumbColor(val, commentID, count, index){
+    if (val.style.opacity == "0.6") {
+      val.style.opacity = "1";
+      updateCommentLikes(commentID, count);
+      let newVideoComments = videoComments;
+      newVideoComments[index].likes += 1
+      console.log(newVideoComments);
+      setVideoComments(newVideoComments);
+
+    } else {
+      val.style.opacity = "0.6";
+    }
+  }
   return (
     <>
       <Navbar
@@ -289,15 +308,15 @@ export function ShowVideoComponent({ match: { params } }) {
                           }}
                         >
                           <a
-                            class="fas fa-thumbs-up"
+                            class="fas fa-thumbs-up comment-thumb"
                             style={{
                               cursor: "pointer",
                               color: "white",
                               opacity: ".6",
                             }}
                             title="Like"
-                            onClick={(e) => changeThumbColor(e.target)}
-                          ></a>
+                            onClick={(e) => changeCommentThumbColor(e.target, val.comment_id, val.likes, index)}
+                          >{val.likes}</a>
                           <span style={{ opacity: ".6" }}> ({val.time})</span>
                         </div>
                       </li>

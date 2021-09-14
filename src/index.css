@@ -399,3 +399,8 @@ audio{
 .copyright-div{
   margin-top: 20px;
 }
+
+.comment-thumb::before{
+  content: "";
+  margin: 5px;
+}
