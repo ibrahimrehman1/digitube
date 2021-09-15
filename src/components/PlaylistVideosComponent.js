@@ -17,7 +17,8 @@ export function PlaylistVideos({ match: { params } }) {
   const [filteredURL, setFilteredURL] = useState([]);
   useEffect(() => {
     document.title = "Playlist Videos | Online Free Video Streaming Platform";
-    let currentPlaylist = playlists.map((val, index) => {
+    console.log(playlists);
+    let currentPlaylist = playlists.filter((val, index) => {
       if (val.name == playlistName) {
         return val;
       }
@@ -26,7 +27,7 @@ export function PlaylistVideos({ match: { params } }) {
     setCurrentPlaylist(currentPlaylist);
   }, []);
   // console.log(url)
-  // console.log(currentPlaylist);
+  console.log(currentPlaylist);
   if (currentPlaylist[0] && !filteredVideos.length && !status) {
     let newurl = [];
     let filteredVids = videos.filter((val, index) => {

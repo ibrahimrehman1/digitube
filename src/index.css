@@ -205,11 +205,22 @@ code {
   text-align: left;
 }
 
-
+/* 
 .comments-list > li::before {
   content: '▶';
   position: absolute;
   left: -20px;
+} */
+
+.avatar-div{
+  display: flex;
+  
+}
+
+.avatar-div > p{
+  padding-top: 10px;
+  padding-left: 10px;
+  font-weight: bold;
 }
 
 .comments-list > li{

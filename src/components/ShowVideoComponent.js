@@ -36,6 +36,7 @@ export function ShowVideoComponent({ match: { params } }) {
   const [videoLikes, setLikes] = useState(0);
   const [videoDislikes, setDislikes] = useState(0);
   const [views, setViews] = useState(0);
+  const [todayDate, setToday] = useState("");
   let url = "";
   const classes = useStyles();
 
@@ -205,6 +206,29 @@ export function ShowVideoComponent({ match: { params } }) {
       val.style.opacity = "0.6";
     }
   }
+
+  function parseDate(str) {
+    var mdy = str.split('/');
+    return new Date(mdy[2], mdy[0]-1, mdy[1]);
+}
+
+function datediff(first, second) {
+    // Take the difference between the dates and divide by milliseconds per day.
+    // Round to nearest whole number to deal with DST.
+    return Math.round((second-first)/(1000*60*60*24));
+}
+
+
+
+if (!todayDate){
+  var todays = new Date();
+  var dd = String(todays.getDate()).padStart(2, '0');
+  var mm = String(todays.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = todays.getFullYear();
+  
+  todays = mm + '/' + dd + '/' + yyyy;
+  setToday(todays);
+}
   return (
     <>
       <Navbar
@@ -300,6 +324,11 @@ export function ShowVideoComponent({ match: { params } }) {
                   {videoComments.map((val, index) => {
                     return (
                       <li key={index} style={{ color: "inherit" }}>
+                        <div className="avatar-div">
+                          <Avatar className={classes.orange} >{userName[0]}</Avatar>
+                          <p>{val.user_name}</p>
+
+                        </div>
                         <p>{val.comment_text}</p>
                         <div
                           style={{
@@ -317,7 +346,8 @@ export function ShowVideoComponent({ match: { params } }) {
                             title="Like"
                             onClick={(e) => changeCommentThumbColor(e.target, val.comment_id, val.likes, index)}
                           >{val.likes}</a>
-                          <span style={{ opacity: ".6" }}> ({val.time})</span>
+                          <span style={{ opacity: ".6" }}> ({datediff(parseDate(val.time), parseDate(todayDate)) == 0 ? "Today" : datediff(parseDate(val.time), parseDate(todayDate)) + " day(s) ago"
+})</span>
                         </div>
                       </li>
                     );
