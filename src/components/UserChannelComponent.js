@@ -80,7 +80,7 @@ function UserChannelComponent({ match: { params } }) {
         {videosData.length ? (
           <div style={{ textAlign: "center" }}>
             <h1
-              style={{ fontSize: "3rem", marginTop: "1.5em", color: "white" }}
+              style={{ fontSize: "2rem", marginTop: "1.5em", color: "white", textDecoration: "underline" }}
             >
               Your Videos/Audios
             </h1>
@@ -100,7 +100,7 @@ function UserChannelComponent({ match: { params } }) {
                 );
               })}
             </section>
-            <h1 style={{ fontSize: "3rem", marginTop: "2em", color: "white" }}>
+            <h1 style={{ fontSize: "2rem", marginTop: "2em", color: "white", textDecoration: "underline" }}>
               Your Playlists
             </h1>
             <section className="row video-section-2">
@@ -127,7 +127,7 @@ function UserChannelComponent({ match: { params } }) {
             </section>
           </div>
         ) : (
-          ""
+          <div class="loader">Loading...</div>
         )}
       </div>
     </>

@@ -98,8 +98,14 @@ code {
   border: 1px solid white;
 }
 
+
 .dropanchor:hover{
   cursor: pointer;
+}
+
+.dropanchor{
+  align-self: center;
+
 }
 
 .dropdiv{
@@ -119,6 +125,8 @@ code {
   display: flex;
   flex-direction: row;
   margin-bottom: 0px;
+  padding: 0px;
+  margin-left: 20px;
 }
 
 .ol-list > li{
@@ -463,3 +471,11 @@ audio{
     box-shadow: 0 2.5em 0 0;
   }
 }
+
+/* 
+div.my-card:nth-child(1){
+  position: absolute;
+    bottom: 0;
+    right: 0;
+} */
+

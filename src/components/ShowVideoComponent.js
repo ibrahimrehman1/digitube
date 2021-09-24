@@ -124,7 +124,7 @@ export function ShowVideoComponent({ match: { params } }) {
     let comment_text = document.querySelector(".postComment").value;
     let time = new Date().toLocaleDateString();
     console.log(comment_text);
-    let newComments = videoComments.concat([{ comment_text, time }]);
+    let newComments = videoComments.concat([{ comment_text, time, likes: 0, user_name: username }]);
     setVideoComments(newComments);
     let val = await fetch("http://localhost:5000/postcomment", {
       method: "POST",
@@ -134,7 +134,7 @@ export function ShowVideoComponent({ match: { params } }) {
           comment_text,
           time,
           title,
-          user_id: videoData[0].user_id,
+          user_id: localStorage.getItem("userid"),
         },
       }),
     });
@@ -317,7 +317,7 @@ if (!todayDate){
                 placeholder="Add a public comment..."
               />
               <button type="button" onClick={addComment} style={{color: "black", opacity: 1, backgroundColor: "white"}}>
-                Comment
+                Comment 
               </button>
               {videoComments.length ? (
                 <ul className="comments-list">
@@ -326,7 +326,8 @@ if (!todayDate){
                       <li key={index} style={{ color: "inherit" }}>
                         <div className="avatar-div">
                           <Avatar className={classes.orange} >{userName[0]}</Avatar>
-                          <p>{val.user_name}</p>
+                        {val.user_name == userName ? <p>{val.user_name} <span class="badge badge-danger">Creator</span>
+</p> : <p>{val.user_name}</p>}
 
                         </div>
                         <p>{val.comment_text}</p>

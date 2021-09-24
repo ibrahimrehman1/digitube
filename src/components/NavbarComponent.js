@@ -141,7 +141,7 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
                     aria-haspopup="true"
                     aria-expanded="false"
                   >
-                    {username.toUpperCase()}
+                    Your Account
                   </button>
                   <div
                     class="dropdown-menu"
@@ -233,7 +233,7 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
                     action="http://localhost:5000/signup"
                     method="POST"
                   >
-                    <div class="form-group">
+                    <div class="form-group text-left">
                       <label for="exampleInputName">Full Name</label>
                       <input
                         type="text"
@@ -244,7 +244,7 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
                         required
                       />
                     </div>
-                    <div class="form-group">
+                    <div class="form-group text-left">
                       <label for="exampleInputEmail1">Email Address</label>
                       <input
                         type="email"
@@ -256,7 +256,7 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
                         required
                       />
                     </div>
-                    <div class="form-group">
+                    <div class="form-group text-left">
                       <label for="exampleInputPassword1">Password</label>
                       <input
                         type="password"
@@ -267,7 +267,7 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
                         required
                       />
                     </div>
-                    <div class="form-group">
+                    <div class="form-group text-left">
                       <label for="exampleInputPassword1">
                         Confirm Password
                       </label>
@@ -339,7 +339,7 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
                     method="POST"
                     target="_self"
                   >
-                    <div class="form-group">
+                    <div class="form-group text-left">
                       <label for="exampleInputEmail1">Email Address</label>
                       <input
                         type="email"
@@ -351,7 +351,7 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
                         name="email"
                       />
                     </div>
-                    <div class="form-group">
+                    <div class="form-group text-left">
                       <label for="exampleInputPassword1">Password</label>
                       <input
                         type="password"

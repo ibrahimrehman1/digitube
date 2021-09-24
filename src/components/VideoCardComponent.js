@@ -166,7 +166,7 @@ function VideoCardComponent({
       <Card
         className={classes.root}
         style={cardStyles}
-        className="col-sm-5 col-md-4 p-0"
+        className="col-sm-5 col-md-4 p-0 cards"
       >
         <Link
           to={`/showvideo/${title}/${username}/${categories}/${remainCategories}/${dispatch}`}
@@ -197,6 +197,7 @@ function VideoCardComponent({
           </Typography>
         </CardContent>
         <CardHeader
+        // className="card-header"
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
               {userName.charAt(0)}
@@ -211,6 +212,8 @@ function VideoCardComponent({
               ""
             )
           }
+
+          className="my-card"
           subheader={uploaddate}
           subheaderTypographyProps={{ color: "white" }}
         />

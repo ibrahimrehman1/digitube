@@ -52,6 +52,7 @@ function VideoUploadComponent({ match: { params } }) {
             name="title"
             aria-describedby="emailHelp"
             placeholder="Enter Title"
+            required
           />
         </div>
         <div class="form-group">
@@ -61,6 +62,7 @@ function VideoUploadComponent({ match: { params } }) {
             id="exampleFormControlSelect1"
             name="category"
             multiple
+            required
           >
             {categories.map((category, index) => {
               return (
@@ -89,6 +91,7 @@ function VideoUploadComponent({ match: { params } }) {
         <div class="form-group">
           <label for="exampleFormControlTextarea1">Description</label>
           <textarea
+          required
             class="form-control video-description"
             id="exampleFormControlTextarea1"
             rows="9"
@@ -110,6 +113,7 @@ function VideoUploadComponent({ match: { params } }) {
           <label for="exampleFormControlFile1">Upload Video/Audio</label>
           <input
             type="file"
+            required
             class="form-control-file"
             id="exampleFormControlFile1"
             name="video"
@@ -120,6 +124,7 @@ function VideoUploadComponent({ match: { params } }) {
           <label for="exampleFormControlFile1">Upload Thumbnail</label>
           <input
             type="file"
+            required
             class="form-control-file thumbnail-image"
             id="exampleFormControlFile1"
             name="video"
