@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Navbar } from "./NavbarComponent";
-import {Avatar} from "@material-ui/core"
-import { deepOrange, deepPurple } from '@material-ui/core/colors';
-import { makeStyles } from '@material-ui/core/styles';
-
+import { Avatar } from "@material-ui/core";
+import { deepOrange, deepPurple } from "@material-ui/core/colors";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    '& > *': {
+    display: "flex",
+    "& > *": {
       margin: theme.spacing(1),
     },
   },
@@ -22,14 +21,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 export function ShowVideoComponent({ match: { params } }) {
   const title = params.title;
   let categories = params.categories.split(",");
   let remainCategories = params.remaincategories.split(",");
   let dispatch = params.dispatch;
   let username = params.username;
-  console.log(params);
   const [videoData, setVideoData] = useState([]);
   const [userName, setUserName] = useState("");
   const [videoComments, setVideoComments] = useState([]);
@@ -37,45 +34,54 @@ export function ShowVideoComponent({ match: { params } }) {
   const [videoDislikes, setDislikes] = useState(0);
   const [views, setViews] = useState(0);
   const [todayDate, setToday] = useState("");
+  const [category, setCategory] = useState("");
   let url = "";
   const classes = useStyles();
 
   let video = document.querySelector("video");
   let audio = document.querySelector("audio");
-  if (video){
-    video.addEventListener("ended", async (e)=>{
-      console.log(e.target);
-      let videoViews = views + 1;
-      let val = await fetch("http://localhost:5000/updateviews", {
-        method: "PUT",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-          views: videoViews,
-          title
-        })
-      })
-  
-      let data = await val.json();
-      console.log(data);
-      setViews(videoViews);
-    })
-  }else if (audio){
-    audio.addEventListener("ended", async (e)=>{
-      console.log(e.target);
-      let videoViews = views + 1;
-      let val = await fetch("http://localhost:5000/updateviews", {
-        method: "PUT",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-          views: videoViews,
-          title
-        })
-      })
-  
-      let data = await val.json();
-      console.log(data);
-      setViews(videoViews);
-    })
+  if (video) {
+    video.addEventListener("ended", videoviews);
+  } else if (audio) {
+    audio.addEventListener("ended", audioviews);
+  }
+
+  async function videoviews(e) {
+    let videoViews = views + 1;
+    let val = await fetch("http://localhost:5000/updateviews", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        views: videoViews,
+        title,
+        category,
+      }),
+    });
+
+    let data = await val.json();
+    // console.log(data);
+    setViews(videoViews);
+
+  }
+
+  async function audioviews(e) {
+    console.count("No of Times: ")
+    // console.log(e.target);
+    let videoViews = views + 1;
+    let val = await fetch("http://localhost:5000/updateviews", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        views: videoViews,
+        title,
+        category,
+      }),
+    });
+
+    let data = await val.json();
+    // console.log(data);
+    setViews(videoViews);
+
   }
   useEffect(() => {
     document.title = `${title} | ${userName}`;
@@ -83,9 +89,12 @@ export function ShowVideoComponent({ match: { params } }) {
       let data = await fetch(`http://localhost:5000/showvideo?title=${title}`);
       let val = await data.json();
       setVideoData(val.result);
-      setLikes(val.result[0].likes)
-      setDislikes(val.result[0].dislikes)
+      setLikes(val.result[0].likes);
+      setDislikes(val.result[0].dislikes);
       setViews(val.result[0].view_count);
+      setCategory(val.result[0].category[0]);
+      // console.log("Views Set!!!");
+      // console.log(val.result[0]);
       let data2 = await fetch(
         `http://localhost:5000/getuser?userid=${val.result[0].user_id}`
       );
@@ -98,12 +107,12 @@ export function ShowVideoComponent({ match: { params } }) {
     }
 
     const fetchComments = async () => {
-      console.log(videoData[0]);
+      // console.log(videoData[0]);
       let data = await fetch(
         `http://localhost:5000/getcomments?title=${videoData[0].title}`
       );
       let comments = await data.json();
-      console.log(comments);
+      // console.log(comments);
       setVideoComments(comments.result);
     };
 
@@ -117,14 +126,16 @@ export function ShowVideoComponent({ match: { params } }) {
       videoData[0].video_path.split("/").slice(2).join("/")
     );
 
-    console.log(url);
+    // console.log(url);
   }
 
   async function addComment() {
     let comment_text = document.querySelector(".postComment").value;
     let time = new Date().toLocaleDateString();
-    console.log(comment_text);
-    let newComments = videoComments.concat([{ comment_text, time, likes: 0, user_name: username }]);
+    // console.log(comment_text);
+    let newComments = videoComments.concat([
+      { comment_text, time, likes: 0, user_name: username },
+    ]);
     setVideoComments(newComments);
     let val = await fetch("http://localhost:5000/postcomment", {
       method: "POST",
@@ -139,44 +150,42 @@ export function ShowVideoComponent({ match: { params } }) {
       }),
     });
     let body = await val.json();
-    console.log(body);
+    // console.log(body);
   }
 
-
-  async function updateLikeDislikes(label, status){
-    let likes = videoLikes
-    let dislikes =  videoDislikes
-    if (label == "Like" && status){
+  async function updateLikeDislikes(label, status) {
+    let likes = videoLikes;
+    let dislikes = videoDislikes;
+    if (label == "Like" && status) {
       likes += 1;
-    }else if (label == "Dislike" && status){
+    } else if (label == "Dislike" && status) {
       dislikes += 1;
-    }else if (label == "Like" && !status){
+    } else if (label == "Like" && !status) {
       likes -= 1;
-    }else if (label == "Dislike" && !status){
+    } else if (label == "Dislike" && !status) {
       dislikes -= 1;
     }
 
     let val = await fetch("http://localhost:5000/updatelikedislike", {
       method: "PUT",
-      headers: {"Content-Type": "application/json"},
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         likes,
         dislikes,
-        title
-      })
-    })
+        title,
+      }),
+    });
 
     let data = await val.json();
-    console.log(data);
-    
-      setLikes(likes);
-    
-      setDislikes(dislikes)
-    
+    // console.log(data);
+
+    setLikes(likes);
+
+    setDislikes(dislikes);
   }
 
   function changeThumbColor(val, label) {
-    if (!localStorage.getItem("username")){
+    if (!localStorage.getItem("username")) {
       return;
     }
     if (val.style.opacity == "0.6") {
@@ -188,47 +197,45 @@ export function ShowVideoComponent({ match: { params } }) {
     }
   }
 
-
-  async function updateCommentLikes(ID, count){
-      await fetch(`http://localhost:5000/commentlikes?id=${ID}&count=${count}`, {method: "PUT"})
+  async function updateCommentLikes(ID, count) {
+    await fetch(`http://localhost:5000/commentlikes?id=${ID}&count=${count}`, {
+      method: "PUT",
+    });
   }
 
-  function changeCommentThumbColor(val, commentID, count, index){
+  function changeCommentThumbColor(val, commentID, count, index) {
     if (val.style.opacity == "0.6") {
       val.style.opacity = "1";
       updateCommentLikes(commentID, count);
       let newVideoComments = videoComments;
-      newVideoComments[index].likes += 1
-      console.log(newVideoComments);
+      newVideoComments[index].likes += 1;
+      // console.log(newVideoComments);
       setVideoComments(newVideoComments);
-
     } else {
       val.style.opacity = "0.6";
     }
   }
 
   function parseDate(str) {
-    var mdy = str.split('/');
-    return new Date(mdy[2], mdy[0]-1, mdy[1]);
-}
+    var mdy = str.split("/");
+    return new Date(mdy[2], mdy[0] - 1, mdy[1]);
+  }
 
-function datediff(first, second) {
+  function datediff(first, second) {
     // Take the difference between the dates and divide by milliseconds per day.
     // Round to nearest whole number to deal with DST.
-    return Math.round((second-first)/(1000*60*60*24));
-}
+    return Math.round((second - first) / (1000 * 60 * 60 * 24));
+  }
 
+  if (!todayDate) {
+    var todays = new Date();
+    var dd = String(todays.getDate()).padStart(2, "0");
+    var mm = String(todays.getMonth() + 1).padStart(2, "0"); //January is 0!
+    var yyyy = todays.getFullYear();
 
-
-if (!todayDate){
-  var todays = new Date();
-  var dd = String(todays.getDate()).padStart(2, '0');
-  var mm = String(todays.getMonth() + 1).padStart(2, '0'); //January is 0!
-  var yyyy = todays.getFullYear();
-  
-  todays = mm + '/' + dd + '/' + yyyy;
-  setToday(todays);
-}
+    todays = mm + "/" + dd + "/" + yyyy;
+    setToday(todays);
+  }
   return (
     <>
       <Navbar
@@ -238,20 +245,26 @@ if (!todayDate){
         dispatch={dispatch}
       />
       {url ? (
-        <div
-          className="main-video-div"
-        >
-
-        
-            {url.split(".")[1] == "mp3" ? <audio controls>
-              <source src={'http://localhost:5000/' + url} type="audio/mp3"></source>
-            </audio> :   <video
-            controls
-          >
-            <source src={"http://localhost:5000/" + url}></source>
-            <track src={'http://localhost:5000/' + videoData[0].captions} kind="captions" srclang="en" label="English" />
-            Video Not Available
-          </video>}
+        <div className="main-video-div">
+          {url.split(".")[1] == "mp3" ? (
+            <audio controls>
+              <source
+                src={"http://localhost:5000/" + url}
+                type="audio/mp3"
+              ></source>
+            </audio>
+          ) : (
+            <video controls>
+              <source src={"http://localhost:5000/" + url}></source>
+              <track
+                src={"http://localhost:5000/" + videoData[0].captions}
+                kind="captions"
+                srclang="en"
+                label="English"
+              />
+              Video Not Available
+            </video>
+          )}
 
           <h1 style={{ color: "black", marginTop: "30px", fontSize: "3rem" }}>
             {videoData[0].title}
@@ -264,27 +277,34 @@ if (!todayDate){
                 style={{ cursor: "pointer", color: "white", opacity: ".6" }}
                 title="Like"
                 onClick={(e) => {
-                  changeThumbColor(e.target, "Like")
-                }
-                }
-              >{videoLikes}</a>
+                  changeThumbColor(e.target, "Like");
+                }}
+              >
+                {videoLikes}
+              </a>
               <a
                 class="fas fa-thumbs-down"
                 style={{ cursor: "pointer", color: "white", opacity: ".6" }}
                 title="Dislike"
                 onClick={(e) => changeThumbColor(e.target, "Dislike")}
-              >{videoDislikes}</a>
+              >
+                {videoDislikes}
+              </a>
             </div>
           </div>
 
-          <div style={{display: "flex", flexDirection: "row", marginTop: "10px"}}>
-            <Avatar className={classes.orange} >{userName[0]}</Avatar>
-            <h2 style={{marginLeft: '10px'}}>{userName} Channel</h2>
+          <div
+            style={{ display: "flex", flexDirection: "row", marginTop: "10px" }}
+          >
+            <Avatar className={classes.orange}>{userName[0]}</Avatar>
+            <h2 style={{ marginLeft: "10px" }}>{userName} Channel</h2>
           </div>
 
-
-
-          <pre style={{ color: "black", marginTop: "10px", fontFamily: "Arial"}}>{videoData[0].description}</pre>
+          <pre
+            style={{ color: "black", marginTop: "10px", fontFamily: "Arial" }}
+          >
+            {videoData[0].description}
+          </pre>
           {/* <ul
             style={{
               color: "black",
@@ -303,7 +323,7 @@ if (!todayDate){
 
           {localStorage.getItem("username") ? (
             <div
-            className="comment-div"
+              className="comment-div"
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -316,8 +336,12 @@ if (!todayDate){
                 class="postComment"
                 placeholder="Add a public comment..."
               />
-              <button type="button" onClick={addComment} style={{color: "black", opacity: 1, backgroundColor: "white"}}>
-                Comment 
+              <button
+                type="button"
+                onClick={addComment}
+                style={{ color: "black", opacity: 1, backgroundColor: "white" }}
+              >
+                Comment
               </button>
               {videoComments.length ? (
                 <ul className="comments-list">
@@ -325,10 +349,17 @@ if (!todayDate){
                     return (
                       <li key={index} style={{ color: "inherit" }}>
                         <div className="avatar-div">
-                          <Avatar className={classes.orange} >{userName[0]}</Avatar>
-                        {val.user_name == userName ? <p>{val.user_name} <span class="badge badge-danger">Creator</span>
-</p> : <p>{val.user_name}</p>}
-
+                          <Avatar className={classes.orange}>
+                            {userName[0]}
+                          </Avatar>
+                          {val.user_name == userName ? (
+                            <p>
+                              {val.user_name}{" "}
+                              <span class="badge badge-danger">Creator</span>
+                            </p>
+                          ) : (
+                            <p>{val.user_name}</p>
+                          )}
                         </div>
                         <p>{val.comment_text}</p>
                         <div
@@ -345,10 +376,31 @@ if (!todayDate){
                               opacity: ".6",
                             }}
                             title="Like"
-                            onClick={(e) => changeCommentThumbColor(e.target, val.comment_id, val.likes, index)}
-                          >{val.likes}</a>
-                          <span style={{ opacity: ".6" }}> ({datediff(parseDate(val.time), parseDate(todayDate)) == 0 ? "Today" : datediff(parseDate(val.time), parseDate(todayDate)) + " day(s) ago"
-})</span>
+                            onClick={(e) =>
+                              changeCommentThumbColor(
+                                e.target,
+                                val.comment_id,
+                                val.likes,
+                                index
+                              )
+                            }
+                          >
+                            {val.likes}
+                          </a>
+                          <span style={{ opacity: ".6" }}>
+                            {" "}
+                            (
+                            {datediff(
+                              parseDate(val.time),
+                              parseDate(todayDate)
+                            ) == 0
+                              ? "Today"
+                              : datediff(
+                                  parseDate(val.time),
+                                  parseDate(todayDate)
+                                ) + " day(s) ago"}
+                            )
+                          </span>
                         </div>
                       </li>
                     );

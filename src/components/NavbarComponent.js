@@ -268,14 +268,14 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
                       />
                     </div>
                     <div class="form-group text-left">
-                      <label for="exampleInputPassword1">
+                      <label for="exampleInputPassword2">
                         Confirm Password
                       </label>
                       <input
                         type="password"
                         class="form-control"
                         name="confirmPassword"
-                        id="exampleInputPassword1"
+                        id="exampleInputPassword2"
                         placeholder="123456"
                         required
                       />
@@ -340,24 +340,24 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
                     target="_self"
                   >
                     <div class="form-group text-left">
-                      <label for="exampleInputEmail1">Email Address</label>
+                      <label for="exampleInputEmail2">Email Address</label>
                       <input
                         type="email"
                         class="form-control"
                         required
-                        id="exampleInputEmail1"
+                        id="exampleInputEmail2"
                         aria-describedby="emailHelp"
                         placeholder="ibrahim@gmail.com"
                         name="email"
                       />
                     </div>
                     <div class="form-group text-left">
-                      <label for="exampleInputPassword1">Password</label>
+                      <label for="exampleInputPassword3">Password</label>
                       <input
                         type="password"
                         class="form-control"
                         required
-                        id="exampleInputPassword1"
+                        id="exampleInputPassword3"
                         placeholder="123456"
                         name="password"
                       />

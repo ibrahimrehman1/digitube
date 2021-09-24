@@ -19,9 +19,10 @@ export function PlaylistVideos({ match: { params } }) {
     document.title = "Playlist Videos | Online Free Video Streaming Platform";
     console.log(playlists);
     let currentPlaylist = playlists.filter((val, index) => {
-      if (val.name == playlistName) {
-        return val;
+      if (val.name === playlistName) {
+        return true;
       }
+      return false;
     });
 
     setCurrentPlaylist(currentPlaylist);
@@ -33,7 +34,7 @@ export function PlaylistVideos({ match: { params } }) {
     let filteredVids = videos.filter((val, index) => {
       var video;
       currentPlaylist[0].videos.forEach((val2) => {
-        if (val.title == val2.title) {
+        if (val.title === val2.title) {
           video = val;
         }
       });
@@ -51,9 +52,9 @@ export function PlaylistVideos({ match: { params } }) {
   }
 
   function deleteVid(index) {
-    if (filteredVideos.length != 1) {
+    if (filteredVideos.length !== 1) {
       var newVids = filteredVideos.filter((val, index2) => {
-        if (index2 != index) {
+        if (index2 !== index) {
           return true;
         }
         let url = `http://localhost:5000/removefromplaylist?title=${val.title}&name=${currentPlaylist[0].name}&num=${filteredVideos.length}`;
@@ -123,7 +124,7 @@ export function PlaylistVideos({ match: { params } }) {
                     title="Remove From Playlist"
                     href="#"
                     onClick={() => deleteVid(index)}
-                  ></a>
+                  > </a>
                 </div>
               </div>
             );
