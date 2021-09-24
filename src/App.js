@@ -33,6 +33,7 @@ function MainComponent({ location }) {
   }
   const [categories, setCategories] = useState([]);
   const [remainCategories, setRemainCategories] = useState([]);
+  const [fetchStatus, setFetchStatus] = useState(false);
   useEffect(() => {
     document.querySelector("title").innerText =
       "Homepage | Online Free Video Streaming Platform";
@@ -54,12 +55,16 @@ function MainComponent({ location }) {
   let url = [];
   useEffect(() => {
     async function fetchUserVideos() {
+      if (fetchStatus) {
+        setFetchStatus(false);
+      }
       let val = await fetch("http://localhost:5000/getvideos");
       let data = await val.json();
       if (!data.result.length) {
         history.push("/");
       } else {
         console.log(data.result);
+        setFetchStatus(true);
         dispatch({ type: "ASSIGNMENT", payload: data.result });
       }
     }
@@ -92,14 +97,20 @@ function MainComponent({ location }) {
         dispatch={dispatch}
       />
       <SearchBar dispatch={dispatch} />
-      <VideosComponent
-        url={url}
-        videosData={state.videosData}
-        categories={categories}
-        remainCategories={remainCategories}
-        username={username}
-        dispatch={dispatch}
-      />
+      {state.videosData.length ? (
+        <VideosComponent
+          url={url}
+          videosData={state.videosData}
+          categories={categories}
+          remainCategories={remainCategories}
+          username={username}
+          dispatch={dispatch}
+        />
+      ) : fetchStatus ? (
+        <h3 className="notFound">No Videos Found!</h3>
+      ) : (
+        <div class="loader">Loading...</div>
+      )}
     </div>
   );
 }
@@ -132,30 +143,30 @@ function App() {
       </Switch>
       <footer className="footer">
         <div>
-        <div className="social-icons-div">
-          <h2>DIGITUBE</h2>
-          <div className="social-icons">
-          <i class="fab fa-facebook-f"></i>
-          <i class="fab fa-instagram"></i>          <i class="fab fa-youtube"></i>
-          <i class="fab fa-twitter"></i>
+          <div className="social-icons-div">
+            <h2>DIGITUBE</h2>
+            <div className="social-icons">
+              <i class="fab fa-facebook-f"></i>
+              <i class="fab fa-instagram"></i> <i class="fab fa-youtube"></i>
+              <i class="fab fa-twitter"></i>
+            </div>
           </div>
-        </div>
-        <ul className="support-footer">
-          <li>Support</li>
-          <li>Contact Us</li>
-          <li>FAQ</li>
-          <li>Downloads</li>
-          <li>Locate a Dealer</li>
-          <li>Product Registration</li>
-          <li>Spare Parts</li>
-        </ul>
-        <ul className="support-footer">
-          <li>Digitube</li>
-          <li>About Digitube</li>
-          <li>Digitube Design</li>
-          <li>Careers</li>
-          <li>Newsroom</li>
-        </ul>
+          <ul className="support-footer">
+            <li>Support</li>
+            <li>Contact Us</li>
+            <li>FAQ</li>
+            <li>Downloads</li>
+            <li>Locate a Dealer</li>
+            <li>Product Registration</li>
+            <li>Spare Parts</li>
+          </ul>
+          <ul className="support-footer">
+            <li>Digitube</li>
+            <li>About Digitube</li>
+            <li>Digitube Design</li>
+            <li>Careers</li>
+            <li>Newsroom</li>
+          </ul>
         </div>
         <div className="copyright-div">
           <h5>&copy; Copyright 2021 | All Rights Reserved</h5>
