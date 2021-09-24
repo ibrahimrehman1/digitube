@@ -101,14 +101,14 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
           <li className="nav-item dropanchor">
             <div className="dropdown dropdiv" style={{ flexDirection: "row", margin: "0px" }}>
               <a
-                className="dropdown-toggle text-light"
+                className="dropdown-toggle text-light show-more"
                 id="dropdownMenuButton"
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
-                style={{ fontWeight: "bold" }}
+                style={{ fontWeight: "bold", marginRight: username ? "10px" : "0px"}}
               >
-                Show More
+                 Show More
               </a>
               <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 {remainCategories.map((category, index) => {
@@ -182,7 +182,7 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
                 <a
                   className="nav-link"
                   href="#"
-                  style={{ textAlign: "center" }}
+                  style={{ textAlign: "center", padding: "0px", margin: "5px" }}
                 >
                   <VpnKeyIcon style={{ verticalAlign: "bottom" }} /> Login
                 </a>
@@ -191,7 +191,7 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
                 <a
                   className="nav-link"
                   href="#"
-                  style={{ textAlign: "center" }}
+                  style={{ textAlign: "center", padding: "0px", margin: "5px" }}
                 >
                   <LockOpenIcon style={{ verticalAlign: "bottom" }} /> Signup
                 </a>

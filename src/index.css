@@ -29,7 +29,7 @@ code {
 
 .navbar{
   background: black;
-  padding-bottom: 0px;
+  padding: 2px;
   
 }
 
@@ -126,8 +126,13 @@ code {
   flex-direction: row;
   margin-bottom: 0px;
   padding: 0px;
-  margin-left: 20px;
+  /* margin-left: 20px; */
 }
+
+.show-more::after{
+  left: 0px !important;
+}
+
 
 .ol-list > li{
   display: inline;
