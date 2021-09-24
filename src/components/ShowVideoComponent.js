@@ -38,44 +38,39 @@ export function ShowVideoComponent({ match: { params } }) {
   let url = "";
   const classes = useStyles();
 
-  let video = document.querySelector("video");
-  let audio = document.querySelector("audio");
-  if (video) {
-    video.addEventListener("ended", videoviews);
-  } else if (audio) {
-    audio.addEventListener("ended", audioviews);
-  }
-
   async function videoviews(e) {
-    let videoViews = views + 1;
+    let videoViews = videoData[0].view_count + 1;
+
+    // console.count("Views: ");
+    // console.log(videoData[0].category[0]);
+    // console.log(videoViews);
     await fetch("http://localhost:5000/updateviews", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         views: videoViews,
         title,
-        category,
+        category: videoData[0].category[0],
       }),
     });
     setViews(videoViews);
-
   }
 
   async function audioviews(e) {
-    console.count("No of Times: ")
-    let videoViews = views + 1;
+    console.count("No of Times: ");
+    let videoViews = videoData[0].view_count + 1;
     await fetch("http://localhost:5000/updateviews", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         views: videoViews,
         title,
-        category,
+        category: videoData[0].category[0],
       }),
     });
     setViews(videoViews);
-
   }
+
   useEffect(() => {
     document.title = `${title} | ${userName}`;
     const fetchData = async () => {
@@ -86,11 +81,11 @@ export function ShowVideoComponent({ match: { params } }) {
       setDislikes(val.result[0].dislikes);
       setViews(val.result[0].view_count);
       setCategory(val.result[0].category[0]);
-      // console.log("Views Set!!!");
-      // console.log(val.result[0]);
+
       let data2 = await fetch(
         `http://localhost:5000/getuser?userid=${val.result[0].user_id}`
       );
+
       let val2 = await data2.json();
       setUserName(val2.user[0].user_name);
     };
@@ -98,28 +93,34 @@ export function ShowVideoComponent({ match: { params } }) {
     if (!videoData[0]) {
       fetchData();
     }
-
-    const fetchComments = async () => {
-      // console.log(videoData[0]);
-      let data = await fetch(
-        `http://localhost:5000/getcomments?title=${videoData[0].title}`
-      );
-      let comments = await data.json();
-      // console.log(comments);
-      setVideoComments(comments.result);
-    };
-
-    if (videoData[0]) {
-      fetchComments();
-    }
   }, [videoData, userName]);
+
+  useEffect(() => {
+    if (videoData[0]) {
+      console.count("Event: ");
+      fetchComments();
+      let video = document.querySelector("video");
+      let audio = document.querySelector("audio");
+      if (video) {
+        video.addEventListener("ended", videoviews);
+      } else if (audio) {
+        audio.addEventListener("ended", audioviews);
+      }
+    }
+  }, [videoData]);
+
+  const fetchComments = async () => {
+    let data = await fetch(
+      `http://localhost:5000/getcomments?title=${videoData[0].title}`
+    );
+    let comments = await data.json();
+    setVideoComments(comments.result);
+  };
 
   if (videoData.length) {
     url = encodeURIComponent(
       videoData[0].video_path.split("/").slice(2).join("/")
     );
-
-    // console.log(url);
   }
 
   async function addComment() {
@@ -210,8 +211,6 @@ export function ShowVideoComponent({ match: { params } }) {
   }
 
   function datediff(first, second) {
-    // Take the difference between the dates and divide by milliseconds per day.
-    // Round to nearest whole number to deal with DST.
     return Math.round((second - first) / (1000 * 60 * 60 * 24));
   }
 
@@ -328,7 +327,9 @@ export function ShowVideoComponent({ match: { params } }) {
                           {val.user_name === userName ? (
                             <p>
                               {val.user_name}{" "}
-                              <span className="badge badge-danger">Creator</span>
+                              <span className="badge badge-danger">
+                                Creator
+                              </span>
                             </p>
                           ) : (
                             <p>{val.user_name}</p>
