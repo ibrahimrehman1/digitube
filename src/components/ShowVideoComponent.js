@@ -21,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function ShowVideoComponent({ match: { params } }) {
+export function ShowVideoComponent({ match: { params }, location }) {
+  console.log(location);
   const title = params.title;
   let categories = params.categories.split(",");
   let remainCategories = params.remaincategories.split(",");
@@ -32,18 +33,13 @@ export function ShowVideoComponent({ match: { params } }) {
   const [videoComments, setVideoComments] = useState([]);
   const [videoLikes, setLikes] = useState(0);
   const [videoDislikes, setDislikes] = useState(0);
-  const [views, setViews] = useState(0);
+  // const [views, setViews] = useState(0);
   const [todayDate, setToday] = useState("");
-  const [category, setCategory] = useState("");
   let url = "";
   const classes = useStyles();
 
   async function videoviews(e) {
     let videoViews = videoData[0].view_count + 1;
-
-    // console.count("Views: ");
-    // console.log(videoData[0].category[0]);
-    // console.log(videoViews);
     await fetch("http://localhost:5000/updateviews", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -53,11 +49,12 @@ export function ShowVideoComponent({ match: { params } }) {
         category: videoData[0].category[0],
       }),
     });
-    setViews(videoViews);
+    window.location.assign(location.pathname);
+
+    // setViews(videoViews);
   }
 
   async function audioviews(e) {
-    console.count("No of Times: ");
     let videoViews = videoData[0].view_count + 1;
     await fetch("http://localhost:5000/updateviews", {
       method: "PUT",
@@ -68,7 +65,8 @@ export function ShowVideoComponent({ match: { params } }) {
         category: videoData[0].category[0],
       }),
     });
-    setViews(videoViews);
+    window.location.assign(location.pathname);
+    // setViews(videoViews);
   }
 
   useEffect(() => {
@@ -79,8 +77,7 @@ export function ShowVideoComponent({ match: { params } }) {
       setVideoData(val.result);
       setLikes(val.result[0].likes);
       setDislikes(val.result[0].dislikes);
-      setViews(val.result[0].view_count);
-      setCategory(val.result[0].category[0]);
+      // setViews(val.result[0].view_count);
 
       let data2 = await fetch(
         `http://localhost:5000/getuser?userid=${val.result[0].user_id}`
@@ -257,7 +254,7 @@ export function ShowVideoComponent({ match: { params } }) {
             {videoData[0].title}
           </h1>
           <div className="video-like-dislike">
-            <span>{views} Views</span>
+            <span>{videoData[0].view_count} Views</span>
             <div>
               <a
                 className="fas fa-thumbs-up"
