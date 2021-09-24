@@ -9,7 +9,7 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
     username = localStorage.getItem("username");
   }
 
-  username = username == 1 ? "" : username;
+  username = username === 1 ? "" : username;
 
   let val = [
     "fas fa-gamepad",
@@ -99,9 +99,9 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
             );
           })}
           <li className="nav-item dropanchor">
-            <div class="dropdown dropdiv" style={{ flexDirection: "row", margin: "0px" }}>
+            <div className="dropdown dropdiv" style={{ flexDirection: "row", margin: "0px" }}>
               <a
-                class="dropdown-toggle text-light"
+                className="dropdown-toggle text-light"
                 id="dropdownMenuButton"
                 data-toggle="dropdown"
                 aria-haspopup="true"
@@ -110,11 +110,11 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
               >
                 Show More
               </a>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 {remainCategories.map((category, index) => {
                   return (
                     <a
-                      class="dropdown-item"
+                    className="dropdown-item"
                       href="#"
                       key={index}
                       onClick={() => filterByCategory(category)}
@@ -132,7 +132,7 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
           {username ? (
             <>
               <li>
-                <div class="dropdown">
+                <div className="dropdown">
                   <button
                     type="button"
                     className="btn btn-success dropdown-toggle"
@@ -144,25 +144,25 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
                     Your Account
                   </button>
                   <div
-                    class="dropdown-menu"
+                    className="dropdown-menu"
                     aria-labelledby="dropdownMenuButton"
                   >
                     <Link
                       to={`/videoupload/${username}/${categories}/${remainCategories}/${dispatch}`}
                     >
-                      <a class="dropdown-item" href="#">
+                      <span className="dropdown-item" href="#">
                         Upload Video/Audio
-                      </a>
+                      </span>
                     </Link>
-                    <Link
+                    <Link 
                       to={`/userchannel/${username}/${categories}/${remainCategories}/${dispatch}`}
                     >
-                      <a class="dropdown-item" href="#">
+                      <span className="dropdown-item" href="#">
                         Visit Channel
-                      </a>
+                      </span>
                     </Link>
                     <a
-                      class="dropdown-item"
+                      className="dropdown-item"
                       href="#"
                       onClick={() => {
                         localStorage.removeItem("userid");
@@ -200,18 +200,18 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
           )}
 
           <div
-            class="modal fade"
+            className="modal fade"
             id="exampleModalCenter"
-            tabindex="-1"
+            tabIndex="-1"
             role="dialog"
             aria-labelledby="exampleModalCenterTitle"
             aria-hidden="true"
           >
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
+            <div className="modal-dialog modal-dialog-centered" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
                   <h3
-                    class="modal-title"
+                    className="modal-title"
                     id="exampleModalLongTitle"
                     style={{ margin: "auto" }}
                   >
@@ -219,7 +219,7 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
                   </h3>
                   <button
                     type="button"
-                    class="close"
+                    className="close"
                     data-dismiss="modal"
                     aria-label="Close"
                     style={{ marginLeft: "0px" }}
@@ -227,28 +227,28 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <div class="modal-body">
+                <div className="modal-body">
                   <form
                     target="_self"
                     action="http://localhost:5000/signup"
                     method="POST"
                   >
-                    <div class="form-group text-left">
-                      <label for="exampleInputName">Full Name</label>
+                    <div className="form-group text-left">
+                      <label htmlFor="exampleInputName">Full Name</label>
                       <input
                         type="text"
-                        class="form-control"
+                        className="form-control"
                         id="exampleInputName"
                         placeholder="Ibrahim Rehman"
                         name="fullname"
                         required
                       />
                     </div>
-                    <div class="form-group text-left">
-                      <label for="exampleInputEmail1">Email Address</label>
+                    <div className="form-group text-left">
+                      <label htmlFor="exampleInputEmail1">Email Address</label>
                       <input
                         type="email"
-                        class="form-control"
+                        className="form-control"
                         id="exampleInputEmail1"
                         aria-describedby="emailHelp"
                         placeholder="ibrahim@gmail.com"
@@ -256,46 +256,46 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
                         required
                       />
                     </div>
-                    <div class="form-group text-left">
-                      <label for="exampleInputPassword1">Password</label>
+                    <div className="form-group text-left">
+                      <label htmlFor="exampleInputPassword1">Password</label>
                       <input
                         type="password"
-                        class="form-control"
+                        className="form-control"
                         id="exampleInputPassword1"
                         placeholder="123456"
                         name="password"
                         required
                       />
                     </div>
-                    <div class="form-group text-left">
-                      <label for="exampleInputPassword2">
+                    <div className="form-group text-left">
+                      <label htmlFor="exampleInputPassword2">
                         Confirm Password
                       </label>
                       <input
                         type="password"
-                        class="form-control"
+                        className="form-control"
                         name="confirmPassword"
                         id="exampleInputPassword2"
                         placeholder="123456"
                         required
                       />
                     </div>
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" className="btn btn-primary">
                       Submit
                     </button>
                     <button
                       type="reset"
-                      class="btn btn-primary"
+                      className="btn btn-primary"
                       style={{ marginLeft: "5px" }}
                     >
                       Reset
                     </button>
                   </form>
                 </div>
-                <div class="modal-footer">
+                <div className="modal-footer">
                   <button
                     type="button"
-                    class="btn btn-secondary"
+                    className="btn btn-secondary"
                     data-dismiss="modal"
                   >
                     Close
@@ -306,18 +306,18 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
           </div>
 
           <div
-            class="modal fade"
+            className="modal fade"
             id="exampleModalCenter2"
-            tabindex="-1"
+            tabIndex="-1"
             role="dialog"
             aria-labelledby="exampleModalCenterTitle"
             aria-hidden="true"
           >
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
+            <div className="modal-dialog modal-dialog-centered" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
                   <h3
-                    class="modal-title"
+                    className="modal-title"
                     id="exampleModalLongTitle"
                     style={{ margin: "auto" }}
                   >
@@ -325,7 +325,7 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
                   </h3>
                   <button
                     type="button"
-                    class="close"
+                    className="close"
                     data-dismiss="modal"
                     aria-label="Close"
                     style={{ marginLeft: "0px" }}
@@ -333,17 +333,17 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <div class="modal-body">
+                <div className="modal-body">
                   <form
                     action="http://localhost:5000/login"
                     method="POST"
                     target="_self"
                   >
-                    <div class="form-group text-left">
-                      <label for="exampleInputEmail2">Email Address</label>
+                    <div className="form-group text-left">
+                      <label htmlFor="exampleInputEmail2">Email Address</label>
                       <input
                         type="email"
-                        class="form-control"
+                        className="form-control"
                         required
                         id="exampleInputEmail2"
                         aria-describedby="emailHelp"
@@ -351,11 +351,11 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
                         name="email"
                       />
                     </div>
-                    <div class="form-group text-left">
-                      <label for="exampleInputPassword3">Password</label>
+                    <div className="form-group text-left">
+                      <label htmlFor="exampleInputPassword3">Password</label>
                       <input
                         type="password"
-                        class="form-control"
+                        className="form-control"
                         required
                         id="exampleInputPassword3"
                         placeholder="123456"
@@ -363,22 +363,22 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
                       />
                     </div>
 
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" className="btn btn-primary">
                       Submit
                     </button>
                     <button
                       type="reset"
-                      class="btn btn-primary"
+                      className="btn btn-primary"
                       style={{ marginLeft: "5px" }}
                     >
                       Reset
                     </button>
                   </form>
                 </div>
-                <div class="modal-footer">
+                <div className="modal-footer">
                   <button
                     type="button"
-                    class="btn btn-secondary"
+                    className="btn btn-secondary"
                     data-dismiss="modal"
                   >
                     Close

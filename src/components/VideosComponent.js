@@ -12,7 +12,6 @@ function VideosComponent({
   if (!username && localStorage.getItem("username")) {
     username = localStorage.getItem("username");
   }
-  console.log("Username: ", username);
   if (!videosData) {
     videosData = [];
   }
@@ -27,6 +26,7 @@ function VideosComponent({
             {url.map((val, index) => {
               return (
                 <VideoCardComponent
+                  key={index}
                   uri={"http://localhost:5000/" + url[index]}
                   title={videosData[index].title}
                   description={videosData[index].description}

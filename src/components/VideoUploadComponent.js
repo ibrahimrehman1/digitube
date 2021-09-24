@@ -43,11 +43,11 @@ function VideoUploadComponent({ match: { params } }) {
         method="POST"
         encType="multipart/form-data"
       >
-        <div class="form-group">
-          <label for="exampleInputEmail1">Title</label>
+        <div className="form-group">
+          <label htmlFor="exampleInputEmail1">Title</label>
           <input
             type="text"
-            class="form-control video-title"
+            className="form-control video-title"
             id="exampleInputEmail1"
             name="title"
             aria-describedby="emailHelp"
@@ -55,10 +55,10 @@ function VideoUploadComponent({ match: { params } }) {
             required
           />
         </div>
-        <div class="form-group">
-          <label for="exampleFormControlSelect1">Select Category(ies)</label>
+        <div className="form-group">
+          <label htmlFor="exampleFormControlSelect1">Select Category(ies)</label>
           <select
-            class="form-control video-category"
+            className="form-control video-category"
             id="exampleFormControlSelect1"
             name="category"
             multiple
@@ -73,10 +73,10 @@ function VideoUploadComponent({ match: { params } }) {
             })}
           </select>
         </div>
-        <div class="form-group">
-          <label for="exampleFormControlSelect1">Select Video Quality (If Uploading Video)</label>
+        <div className="form-group">
+          <label htmlFor="exampleFormControlSelect1">Select Video Quality (If Uploading Video)</label>
           <select
-            class="form-control video-quality"
+            className="form-control video-quality"
             id="exampleFormControlSelect1"
             name="quality"
           >
@@ -88,44 +88,44 @@ function VideoUploadComponent({ match: { params } }) {
             <option value="1080p">1080p</option>
           </select>
         </div>
-        <div class="form-group">
-          <label for="exampleFormControlTextarea1">Description</label>
+        <div className="form-group">
+          <label htmlFor="exampleFormControlTextarea1">Description</label>
           <textarea
           required
-            class="form-control video-description"
+          className="form-control video-description"
             id="exampleFormControlTextarea1"
             rows="9"
             name="description"
           ></textarea>
         </div>
         <br />
-        <div class="form-group">
-          <label for="exampleFormControlFile1">Upload Captions (Optional)</label>
+        <div className="form-group">
+          <label htmlFor="exampleFormControlFile1">Upload Captions (Optional)</label>
           <input
             type="file"
-            class="form-control-file"
+            className="form-control-file"
             id="exampleFormControlFile1"
             name="video"
           />
         </div>
         <br />
-        <div class="form-group">
-          <label for="exampleFormControlFile1">Upload Video/Audio</label>
+        <div className="form-group">
+          <label htmlFor="exampleFormControlFile1">Upload Video/Audio</label>
           <input
             type="file"
             required
-            class="form-control-file"
+            className="form-control-file"
             id="exampleFormControlFile1"
             name="video"
           />
         </div>
         <br />
-        <div class="form-group">
-          <label for="exampleFormControlFile1">Upload Thumbnail</label>
+        <div className="form-group">
+          <label htmlFor="exampleFormControlFile1">Upload Thumbnail</label>
           <input
             type="file"
             required
-            class="form-control-file thumbnail-image"
+            className="form-control-file thumbnail-image"
             id="exampleFormControlFile1"
             name="video"
           />
@@ -137,7 +137,7 @@ function VideoUploadComponent({ match: { params } }) {
         />
         <button
           type="submit"
-          class="btn btn-primary"
+          className="btn btn-primary"
           style={{ display: "block", margin: "auto" }}
         >
           Post Video/Audio

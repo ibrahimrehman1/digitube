@@ -48,7 +48,7 @@ export function ShowVideoComponent({ match: { params } }) {
 
   async function videoviews(e) {
     let videoViews = views + 1;
-    let val = await fetch("http://localhost:5000/updateviews", {
+    await fetch("http://localhost:5000/updateviews", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -57,18 +57,14 @@ export function ShowVideoComponent({ match: { params } }) {
         category,
       }),
     });
-
-    let data = await val.json();
-    // console.log(data);
     setViews(videoViews);
 
   }
 
   async function audioviews(e) {
     console.count("No of Times: ")
-    // console.log(e.target);
     let videoViews = views + 1;
-    let val = await fetch("http://localhost:5000/updateviews", {
+    await fetch("http://localhost:5000/updateviews", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -77,9 +73,6 @@ export function ShowVideoComponent({ match: { params } }) {
         category,
       }),
     });
-
-    let data = await val.json();
-    // console.log(data);
     setViews(videoViews);
 
   }
@@ -137,7 +130,7 @@ export function ShowVideoComponent({ match: { params } }) {
       { comment_text, time, likes: 0, user_name: username },
     ]);
     setVideoComments(newComments);
-    let val = await fetch("http://localhost:5000/postcomment", {
+    await fetch("http://localhost:5000/postcomment", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -149,24 +142,22 @@ export function ShowVideoComponent({ match: { params } }) {
         },
       }),
     });
-    let body = await val.json();
-    // console.log(body);
   }
 
   async function updateLikeDislikes(label, status) {
     let likes = videoLikes;
     let dislikes = videoDislikes;
-    if (label == "Like" && status) {
+    if (label === "Like" && status) {
       likes += 1;
-    } else if (label == "Dislike" && status) {
+    } else if (label === "Dislike" && status) {
       dislikes += 1;
-    } else if (label == "Like" && !status) {
+    } else if (label === "Like" && !status) {
       likes -= 1;
-    } else if (label == "Dislike" && !status) {
+    } else if (label === "Dislike" && !status) {
       dislikes -= 1;
     }
 
-    let val = await fetch("http://localhost:5000/updatelikedislike", {
+    await fetch("http://localhost:5000/updatelikedislike", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -175,9 +166,6 @@ export function ShowVideoComponent({ match: { params } }) {
         title,
       }),
     });
-
-    let data = await val.json();
-    // console.log(data);
 
     setLikes(likes);
 
@@ -188,7 +176,7 @@ export function ShowVideoComponent({ match: { params } }) {
     if (!localStorage.getItem("username")) {
       return;
     }
-    if (val.style.opacity == "0.6") {
+    if (val.style.opacity === "0.6") {
       val.style.opacity = "1";
       updateLikeDislikes(label, true);
     } else {
@@ -204,7 +192,7 @@ export function ShowVideoComponent({ match: { params } }) {
   }
 
   function changeCommentThumbColor(val, commentID, count, index) {
-    if (val.style.opacity == "0.6") {
+    if (val.style.opacity === "0.6") {
       val.style.opacity = "1";
       updateCommentLikes(commentID, count);
       let newVideoComments = videoComments;
@@ -246,7 +234,7 @@ export function ShowVideoComponent({ match: { params } }) {
       />
       {url ? (
         <div className="main-video-div">
-          {url.split(".")[1] == "mp3" ? (
+          {url.split(".")[1] === "mp3" ? (
             <audio controls>
               <source
                 src={"http://localhost:5000/" + url}
@@ -259,7 +247,7 @@ export function ShowVideoComponent({ match: { params } }) {
               <track
                 src={"http://localhost:5000/" + videoData[0].captions}
                 kind="captions"
-                srclang="en"
+                srcLang="en"
                 label="English"
               />
               Video Not Available
@@ -273,7 +261,7 @@ export function ShowVideoComponent({ match: { params } }) {
             <span>{views} Views</span>
             <div>
               <a
-                class="fas fa-thumbs-up"
+                className="fas fa-thumbs-up"
                 style={{ cursor: "pointer", color: "white", opacity: ".6" }}
                 title="Like"
                 onClick={(e) => {
@@ -283,7 +271,7 @@ export function ShowVideoComponent({ match: { params } }) {
                 {videoLikes}
               </a>
               <a
-                class="fas fa-thumbs-down"
+                className="fas fa-thumbs-down"
                 style={{ cursor: "pointer", color: "white", opacity: ".6" }}
                 title="Dislike"
                 onClick={(e) => changeThumbColor(e.target, "Dislike")}
@@ -305,21 +293,6 @@ export function ShowVideoComponent({ match: { params } }) {
           >
             {videoData[0].description}
           </pre>
-          {/* <ul
-            style={{
-              color: "black",
-              listStyleType: "none",
-              display: "inline",
-              padding: "0px",
-            }}
-          >
-            Type:
-            {videoData[0].category.map((val) => {
-              return (
-                <li style={{ display: "inline", margin: "5px" }}>{val}</li>
-              );
-            })}
-          </ul> */}
 
           {localStorage.getItem("username") ? (
             <div
@@ -333,7 +306,7 @@ export function ShowVideoComponent({ match: { params } }) {
             >
               <input
                 type="text"
-                class="postComment"
+                className="postComment"
                 placeholder="Add a public comment..."
               />
               <button
@@ -352,10 +325,10 @@ export function ShowVideoComponent({ match: { params } }) {
                           <Avatar className={classes.orange}>
                             {userName[0]}
                           </Avatar>
-                          {val.user_name == userName ? (
+                          {val.user_name === userName ? (
                             <p>
                               {val.user_name}{" "}
-                              <span class="badge badge-danger">Creator</span>
+                              <span className="badge badge-danger">Creator</span>
                             </p>
                           ) : (
                             <p>{val.user_name}</p>
@@ -369,7 +342,7 @@ export function ShowVideoComponent({ match: { params } }) {
                           }}
                         >
                           <a
-                            class="fas fa-thumbs-up comment-thumb"
+                            className="fas fa-thumbs-up comment-thumb"
                             style={{
                               cursor: "pointer",
                               color: "white",
@@ -393,7 +366,7 @@ export function ShowVideoComponent({ match: { params } }) {
                             {datediff(
                               parseDate(val.time),
                               parseDate(todayDate)
-                            ) == 0
+                            ) === 0
                               ? "Today"
                               : datediff(
                                   parseDate(val.time),

@@ -17,7 +17,6 @@ export function PlaylistVideos({ match: { params } }) {
   const [filteredURL, setFilteredURL] = useState([]);
   useEffect(() => {
     document.title = "Playlist Videos | Online Free Video Streaming Platform";
-    console.log(playlists);
     let currentPlaylist = playlists.filter((val, index) => {
       if (val.name === playlistName) {
         return true;
@@ -27,8 +26,6 @@ export function PlaylistVideos({ match: { params } }) {
 
     setCurrentPlaylist(currentPlaylist);
   }, []);
-  // console.log(url)
-  console.log(currentPlaylist);
   if (currentPlaylist[0] && !filteredVideos.length && !status) {
     let newurl = [];
     let filteredVids = videos.filter((val, index) => {
@@ -44,11 +41,9 @@ export function PlaylistVideos({ match: { params } }) {
       }
       return false;
     });
-    // console.log(filteredVids);
-    // console.log(url)
+    
     setFilteredVideos(filteredVids);
     setFilteredURL(newurl);
-    console.log(filteredURL);
   }
 
   function deleteVid(index) {
@@ -58,7 +53,6 @@ export function PlaylistVideos({ match: { params } }) {
           return true;
         }
         let url = `http://localhost:5000/removefromplaylist?title=${val.title}&name=${currentPlaylist[0].name}&num=${filteredVideos.length}`;
-        console.log(url);
         fetch(url, {
           method: "DELETE",
         })
@@ -74,7 +68,6 @@ export function PlaylistVideos({ match: { params } }) {
         method: "DELETE",
       })
         .then((val) => val.json())
-        .then((data) => console.log(data));
       setStatus(true);
       setFilteredVideos([]);
     }
@@ -120,7 +113,7 @@ export function PlaylistVideos({ match: { params } }) {
 
                 <div className="trash-div">
                   <a
-                    class="fas fa-trash"
+                    className="fas fa-trash"
                     title="Remove From Playlist"
                     href="#"
                     onClick={() => deleteVid(index)}

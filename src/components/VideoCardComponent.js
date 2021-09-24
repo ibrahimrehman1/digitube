@@ -164,7 +164,6 @@ function VideoCardComponent({
   return (
     <>
       <Card
-        className={classes.root}
         style={cardStyles}
         className="col-sm-5 col-md-4 p-0 cards"
       >
@@ -174,7 +173,6 @@ function VideoCardComponent({
           <CardMedia
             className={classes.media}
             image={uri}
-            component="image"
             title={title}
           />
         </Link>
@@ -182,22 +180,16 @@ function VideoCardComponent({
           <Typography
             variant="body2"
             color="textSecondary"
-            component="p"
-            style={{ padding: "10px" }}
+            component="h6"
+            style={{ padding: "10px", textAlign: "center",
+            fontWeight: "bold",
+            color: "black", fontSize: "1.2rem"}}
           >
-            <h6
-              style={{
-                textAlign: "center",
-                fontWeight: "bold",
-                color: "black",
-              }}
-            >
+            
               {title}
-            </h6>
           </Typography>
         </CardContent>
         <CardHeader
-        // className="card-header"
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
               {userName.charAt(0)}
@@ -215,7 +207,6 @@ function VideoCardComponent({
 
           className="my-card"
           subheader={uploaddate}
-          subheaderTypographyProps={{ color: "white" }}
         />
 
         {currentUser ? (
@@ -226,8 +217,6 @@ function VideoCardComponent({
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            {/* <MenuItem onClick={handleClose}>Watch Later</MenuItem>
-            <MenuItem onClick={handleClose}>Share</MenuItem> */}
             <MenuItem
               onClick={function () {
                 handleOpen();
@@ -244,34 +233,6 @@ function VideoCardComponent({
             >
               {body}
             </Modal>
-
-            {/* 
-                    <div class="modal fade" id="addToPlaylist" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h3 class="modal-title" id="exampleModalLongTitle" style={{margin: "auto"}}>Add to Playlist</h3>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style={{marginLeft: "0px"}}>
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                            <form target="_self" action="http://localhost:5000/playlist" method="POST">
-                                <div class="form-group">
-                                    <label for="exampleInputName">Playlist Name</label>
-                                    <input type="text" class="form-control" id="exampleInputName" placeholder="Enter Playlist Name" name="fullname" required/>
-                                </div>
-                                <input type="hidden" value={title}/>
-                                
-                                <button type="submit" class="btn btn-primary">Add to Playlist</button>
-                            </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                            </div>
-                        </div>
-                    </div> */}
           </Menu>
         ) : (
           ""

@@ -16,13 +16,16 @@ export function filterReducer(state, action) {
   switch (action.type) {
     case "ASSIGNMENT":
       return { ...state, videosData: [...action.payload] };
+
+    default:
+      return state;
   }
 }
 
 function MainComponent({ location }) {
   let username = "";
   if (location.search) {
-    console.log(location.search);
+    // console.log(location.search);
     let usernameWithId = location.search.substring(1).split("=");
     let user = usernameWithId[1].split("&")[0];
     user = user.split(/(?=[A-Z])/).join(" ");
@@ -63,16 +66,16 @@ function MainComponent({ location }) {
       if (!data.result.length) {
         history.push("/");
       } else {
-        console.log(data.result);
+        // console.log(data.result);
         setFetchStatus(true);
         dispatch({ type: "ASSIGNMENT", payload: data.result });
       }
     }
     fetchUserVideos();
   }, []);
-  console.log(state);
+  // console.log(state);
   if (state.videosData.length) {
-    console.log("State ForEach: ", state);
+    // console.log("State ForEach: ", state);
     state.videosData.forEach((val, index) => {
       url.push(
         encodeURIComponent(
@@ -80,7 +83,7 @@ function MainComponent({ location }) {
         )
       );
     });
-    console.log(url);
+    // console.log(url);
     localStorage.setItem("videos", JSON.stringify(state.videosData));
     localStorage.setItem("url", JSON.stringify(url));
   }
@@ -109,7 +112,7 @@ function MainComponent({ location }) {
       ) : fetchStatus ? (
         <h3 className="notFound">No Videos Found!</h3>
       ) : (
-        <div class="loader">Loading...</div>
+        <div className="loader">Loading...</div>
       )}
     </div>
   );
@@ -146,9 +149,9 @@ function App() {
           <div className="social-icons-div">
             <h2>DIGITUBE</h2>
             <div className="social-icons">
-              <i class="fab fa-facebook-f"></i>
-              <i class="fab fa-instagram"></i> <i class="fab fa-youtube"></i>
-              <i class="fab fa-twitter"></i>
+              <i className="fab fa-facebook-f"></i>
+              <i className="fab fa-instagram"></i> <i className="fab fa-youtube"></i>
+              <i className="fab fa-twitter"></i>
             </div>
           </div>
           <ul className="support-footer">

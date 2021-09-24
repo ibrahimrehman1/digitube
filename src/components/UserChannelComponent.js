@@ -2,25 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { Navbar } from "./NavbarComponent";
 import { VideoCardComponent } from "./VideoCardComponent";
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles({
-  root: {
-    minWidth: 275,
-    border: "1px solid black",
-  },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-});
 
 function UserChannelComponent({ match: { params } }) {
   let categories = params.categories.split(",");
@@ -44,7 +25,6 @@ function UserChannelComponent({ match: { params } }) {
       if (!data.result || !data.result.length) {
         history.push("/videoupload");
       } else {
-        console.log(data);
         setVideosData(data.result);
         localStorage.setItem("playlistVids", JSON.stringify(data.playlist));
         setPlaylist(data.playlist);
@@ -61,10 +41,8 @@ function UserChannelComponent({ match: { params } }) {
         )
       );
     });
-    console.log(url);
   }
 
-  const classes = useStyles();
   return (
     <>
       <Navbar
@@ -88,6 +66,7 @@ function UserChannelComponent({ match: { params } }) {
               {url.map((val, index) => {
                 return (
                   <VideoCardComponent
+                  key={index}
                     uri={"http://localhost:5000/" + url[index]}
                     title={videosData[index].title}
                     description={videosData[index].description}
@@ -108,7 +87,7 @@ function UserChannelComponent({ match: { params } }) {
                 <>
                   {playlist.map((val, index) => {
                     return (
-                      <div className="playlist-card">
+                      <div className="playlist-card" key={index}>
                         <h3 style={{fontSize: "2.5rem"}}>{val.name}</h3>
                         <h6 style={{marginTop: "20px"}}>No. of Videos: {val.no_of_videos}</h6>
                         <h6>Total Views: {val.total_views}</h6>
@@ -127,7 +106,7 @@ function UserChannelComponent({ match: { params } }) {
             </section>
           </div>
         ) : (
-          <div class="loader">Loading...</div>
+          <div className="loader">Loading...</div>
         )}
       </div>
     </>
