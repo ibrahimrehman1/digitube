@@ -25,14 +25,18 @@ export function filterReducer(state, action) {
 function MainComponent({ location }) {
   let username = "";
   if (location.search) {
-    // console.log(location.search);
-    let usernameWithId = location.search.substring(1).split("=");
-    let user = usernameWithId[1].split("&")[0];
-    user = user.split(/(?=[A-Z])/).join(" ");
+    if (!location.search.includes("message")) {
+      // console.log(location.search);
+      let usernameWithId = location.search.substring(1).split("=");
+      let user = usernameWithId[1].split("&")[0];
+      user = user.split(/(?=[A-Z])/).join(" ");
 
-    let user_id = usernameWithId[2];
-    localStorage.setItem("userid", user_id);
-    localStorage.setItem("username", user);
+      let user_id = usernameWithId[2];
+      localStorage.setItem("userid", user_id);
+      localStorage.setItem("username", user);
+    } else {
+      console.log("Incorrect Email Password");
+    }
   }
   const [categories, setCategories] = useState([]);
   const [remainCategories, setRemainCategories] = useState([]);
@@ -65,32 +69,25 @@ function MainComponent({ location }) {
       let data = await val.json();
 
       let arr = [];
-      data.forEach((val, index)=>{
-        val.categories = []
-        val.categories.push(val.category)
-        data.forEach((val2, index2)=>{
-          if (val.title === val2.title && index !== index2){
+      data.forEach((val, index) => {
+        val.categories = [];
+        val.categories.push(val.category);
+        data.forEach((val2, index2) => {
+          if (val.title === val2.title && index !== index2) {
             val.categories.push(val2.category);
           }
-          
-        })
+        });
         arr.push(val);
-      })
+      });
 
-
-      
       arr = arr.reduce((acc, current) => {
-        const x = acc.find(item => item.title === current.title);
+        const x = acc.find((item) => item.title === current.title);
         if (!x) {
           return acc.concat([current]);
         } else {
           return acc;
         }
       }, []);
-
-      console.log("Data", arr);
-
-
 
 
       if (!data.length) {
@@ -180,7 +177,8 @@ function App() {
             <h2>DIGITUBE</h2>
             <div className="social-icons">
               <i className="fab fa-facebook-f"></i>
-              <i className="fab fa-instagram"></i> <i className="fab fa-youtube"></i>
+              <i className="fab fa-instagram"></i>{" "}
+              <i className="fab fa-youtube"></i>
               <i className="fab fa-twitter"></i>
             </div>
           </div>
