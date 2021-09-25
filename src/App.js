@@ -63,12 +63,42 @@ function MainComponent({ location }) {
       }
       let val = await fetch("http://localhost:5000/getvideos");
       let data = await val.json();
-      if (!data.result.length) {
+
+      let arr = [];
+      data.forEach((val, index)=>{
+        val.categories = []
+        val.categories.push(val.category)
+        data.forEach((val2, index2)=>{
+          if (val.title === val2.title && index !== index2){
+            val.categories.push(val2.category);
+          }
+          
+        })
+        arr.push(val);
+      })
+
+
+      
+      arr = arr.reduce((acc, current) => {
+        const x = acc.find(item => item.title === current.title);
+        if (!x) {
+          return acc.concat([current]);
+        } else {
+          return acc;
+        }
+      }, []);
+
+      console.log("Data", arr);
+
+
+
+
+      if (!data.length) {
         history.push("/");
       } else {
         // console.log(data.result);
         setFetchStatus(true);
-        dispatch({ type: "ASSIGNMENT", payload: data.result });
+        dispatch({ type: "ASSIGNMENT", payload: data });
       }
     }
     fetchUserVideos();

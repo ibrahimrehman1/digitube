@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function ShowVideoComponent({ match: { params }, location }) {
-  console.log(location);
   const title = params.title;
   let categories = params.categories.split(",");
   let remainCategories = params.remaincategories.split(",");
@@ -220,6 +219,7 @@ export function ShowVideoComponent({ match: { params }, location }) {
     todays = mm + "/" + dd + "/" + yyyy;
     setToday(todays);
   }
+
   return (
     <>
       <Navbar

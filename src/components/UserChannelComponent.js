@@ -22,12 +22,42 @@ function UserChannelComponent({ match: { params } }) {
         body: JSON.stringify({ userid }),
       });
       let data = await val.json();
-      if (!data.result || !data.result.length) {
+      console.log(data);
+      let arr = [];
+      let playlistData = data.playlist;
+      playlistData.forEach((val, index)=>{
+        // arr.push(val);
+        val.videos = []
+        val.videos.push({title: val.title})
+        playlistData.forEach((val2, index2)=>{
+          if (val.name === val2.name && index !== index2){
+            val.videos.push({title: val2.title});
+          }
+          
+        })
+        arr.push(val);
+      })
+
+
+      
+      const filteredArr = arr.reduce((acc, current) => {
+        const x = acc.find(item => item.name === current.name);
+        if (!x) {
+          return acc.concat([current]);
+        } else {
+          return acc;
+        }
+      }, []);
+
+
+      console.log("VAL: ", filteredArr);
+      
+      if (!data.video || !data.video.length) {
         history.push("/videoupload");
       } else {
-        setVideosData(data.result);
-        localStorage.setItem("playlistVids", JSON.stringify(data.playlist));
-        setPlaylist(data.playlist);
+        setVideosData(data.video);
+        localStorage.setItem("playlistVids", JSON.stringify(filteredArr));
+        setPlaylist(filteredArr);
       }
     }
     fetchUserVideos();

@@ -9,7 +9,7 @@ function Navbar({ categories, remainCategories, username, dispatch }) {
     username = localStorage.getItem("username");
   }
 
-  username = username === 1 ? "" : username;
+  username = username == 1 ? "" : username;
 
   let val = [
     "fas fa-gamepad",
