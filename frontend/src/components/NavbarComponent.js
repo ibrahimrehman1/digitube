@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../logo2.png";
+import Logo from "../images/logo2.png";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import { useHistory, Link } from "react-router-dom";
